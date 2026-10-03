@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4520f410262254fb91db954d6cf597, type: 3}
+  m_Name: PearItem
+  m_EditorClassIdentifier: Assembly-CSharp::SciptableObjects.ItemData
+  _itemID: a5a40088-1948-400d-95f1-74885a224bdf
+  _isStackable: 1
+  _itemName: Pear
+  _itemIcon: {fileID: 21300000, guid: a1843f89f77a2b3449253113623c7b91, type: 3}
+  _itemDesc: Pear is delisious way to fullfill your health.
+  _itemWeightValue: 0.1
+  _itemMoneyValue: 10
+  _modules:
+  - rid: 8013009927436763203
+  references:
+    version: 2
+    RefIds:
+    - rid: 8013009927436763203
+      type: {class: ConsumableData, ns: SciptableObjects, asm: Assembly-CSharp}
+      data:
+        _healthValue: 20
+        _staminaValue: 0
+        _manaValue: 0

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4520f410262254fb91db954d6cf597, type: 3}
+  m_Name: BeerItem
+  m_EditorClassIdentifier: Assembly-CSharp::SciptableObjects.ItemData
+  _itemID: 6f265954-6ec3-478a-a0da-f1680decdb95
+  _isStackable: 1
+  _itemName: Beer
+  _itemIcon: {fileID: 21300000, guid: c9d78c48d61f159499e81054d8995f56, type: 3}
+  _itemDesc: Getting drunk while fighting for life?
+  _itemWeightValue: 1
+  _itemMoneyValue: 40
+  _modules:
+  - rid: 8013009927436763207
+  references:
+    version: 2
+    RefIds:
+    - rid: 8013009927436763207
+      type: {class: ConsumableData, ns: SciptableObjects, asm: Assembly-CSharp}
+      data:
+        _healthValue: 20
+        _staminaValue: 20
+        _manaValue: 20
