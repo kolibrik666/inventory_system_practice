@@ -11,11 +11,12 @@ namespace InventorySystem
 
         event Action<Guid> ItemHovered;
         event Action<Guid> ItemClicked;
+        event Action<Guid> ItemRightClicked;
 
         void SetVisible(bool visible);
         void ShowRows(IReadOnlyList<InventoryRowData> rows);
         void ShowSelection(Guid previousId, Guid currentId);
-        void ShowDetails(ItemData item, IReadOnlyList<InventoryDetailData> details, bool canConsume, bool canEquip, bool equipped);
+        void ShowDetails(ItemData item, IReadOnlyList<InventoryDetailData> details, bool canConsume, bool canEquip, bool equipped, bool canDrop);
         void ShowWeight(float current, float capacity);
     }
 

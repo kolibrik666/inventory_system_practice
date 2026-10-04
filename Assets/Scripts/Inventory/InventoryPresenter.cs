@@ -9,19 +9,22 @@ namespace InventorySystem
     {
         private readonly InventoryModel _model;
         private readonly IInventoryView _view;
+        private readonly Func<Guid, InventoryResult> _dropItem;
         private readonly List<InventoryRowData> _rows = new();
 
         private Guid _selectedId;
         private int _selectedIndex;
         private bool _disposed;
 
-        public InventoryPresenter(InventoryModel model, IInventoryView view)
+        public InventoryPresenter(InventoryModel model, IInventoryView view, Func<Guid, InventoryResult> dropItem)
         {
             _model = model ?? throw new ArgumentNullException(nameof(model));
             _view = view ?? throw new ArgumentNullException(nameof(view));
+            _dropItem = dropItem ?? throw new ArgumentNullException(nameof(dropItem));
             _model.Changed += Refresh;
             _view.ItemHovered += Select;
             _view.ItemClicked += Consume;
+            _view.ItemRightClicked += Drop;
             Refresh();
         }
 
@@ -54,6 +57,7 @@ namespace InventorySystem
             _model.Changed -= Refresh;
             _view.ItemHovered -= Select;
             _view.ItemClicked -= Consume;
+            _view.ItemRightClicked -= Drop;
         }
 
         private void Select(Guid id)
@@ -79,6 +83,13 @@ namespace InventorySystem
             if (!_view.IsVisible) return;
             Select(id);
             _model.TryConsume(id);
+        }
+
+        private void Drop(Guid id)
+        {
+            if (!_view.IsVisible) return;
+            Select(id);
+            _dropItem(id);
         }
 
         private void Refresh()
@@ -109,14 +120,14 @@ namespace InventorySystem
         {
             if (selected == null)
             {
-                _view.ShowDetails(null, Array.Empty<InventoryDetailData>(), false, false, false);
+                _view.ShowDetails(null, Array.Empty<InventoryDetailData>(), false, false, false, false);
                 return;
             }
 
             bool canConsume = selected.Item.TryGetModule(out ConsumableData _)
                 && (!selected.IsEquipped || selected.Quantity > 1);
             bool canEquip = InventoryModel.GetEquipmentEligibility(selected.Item, out _) == InventoryResult.Success;
-            _view.ShowDetails(selected.Item, InventoryDetailsFormatter.Create(selected.Item), canConsume, canEquip, selected.IsEquipped);
+            _view.ShowDetails(selected.Item, InventoryDetailsFormatter.Create(selected.Item), canConsume, canEquip, selected.IsEquipped, true);
         }
     }
 }

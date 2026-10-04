@@ -17,6 +17,7 @@ public sealed class InventoryItemView : TextButton
 
     public event Action<Guid> Hovered;
     public event Action<Guid> Clicked;
+    public event Action<Guid> RightClicked;
 
     public void Render(InventoryRowData data)
     {
@@ -42,8 +43,15 @@ public sealed class InventoryItemView : TextButton
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        if (!IsActive() || !IsInteractable() || eventData.button != PointerEventData.InputButton.Left) return;
-        Clicked?.Invoke(_entryId);
+        if (!IsActive() || !IsInteractable()) return;
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            Clicked?.Invoke(_entryId);
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            RightClicked?.Invoke(_entryId);
+        }
     }
 
     public override void OnSubmit(BaseEventData eventData)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using InteractionSystem;
 using InventorySystem;
 using SciptableObjects;
 
@@ -11,10 +12,14 @@ public sealed class Inventory : MonoBehaviour
 {
     [SerializeField] private InventoryView _view;
     [SerializeField] private CameraController _cameraController;
+    [SerializeField] private ItemCatalog _itemCatalog;
+    [SerializeField] private WorldItemDropper _itemDropper;
     [SerializeField, Min(0)] private float _capacity = 20;
     [SerializeField] private bool _startVisible;
     [SerializeField] private bool _debugMode;
     [SerializeField] private List<DebugInventoryItem> _debugItems = new();
+
+    private readonly Dictionary<string, ItemData> _itemsById = new(StringComparer.Ordinal);
 
     private InventoryPresenter _presenter;
     private InputAction _toggleAction;
@@ -22,6 +27,7 @@ public sealed class Inventory : MonoBehaviour
     private InputAction _equipAction;
 
     public InventoryModel Model { get; private set; }
+    public bool IsOpen => _view != null && _view.IsVisible;
 
     private void Awake()
     {
@@ -33,6 +39,7 @@ public sealed class Inventory : MonoBehaviour
         }
 
         Model = new InventoryModel(_capacity);
+        InitializeCatalog();
         _toggleAction = new InputAction("Toggle Inventory", InputActionType.Button, "<Keyboard>/i");
         _closeAction = new InputAction("Close Inventory", InputActionType.Button, "<Keyboard>/escape");
         _equipAction = new InputAction("Equip Item", InputActionType.Button, "<Keyboard>/space");
@@ -43,7 +50,7 @@ public sealed class Inventory : MonoBehaviour
     private void OnEnable()
     {
         if (Model == null) return;
-        _presenter = new InventoryPresenter(Model, _view);
+        _presenter = new InventoryPresenter(Model, _view, TryDropItem);
         _view.VisibilityChanged += OnVisibilityChanged;
         _toggleAction.performed += OnToggle;
         _closeAction.performed += OnClose;
@@ -99,6 +106,42 @@ public sealed class Inventory : MonoBehaviour
     private void OnEquip(InputAction.CallbackContext context)
     {
         _presenter.ToggleEquipment();
+    }
+
+    public InventoryResult TryAddItem(string itemId, int quantity = 1)
+    {
+        if (Model == null || string.IsNullOrWhiteSpace(itemId) || !_itemsById.TryGetValue(itemId, out ItemData item))
+        {
+            return InventoryResult.InvalidItem;
+        }
+
+        return Model.TryAdd(item, quantity);
+    }
+
+    public InventoryResult TryDropItem(Guid entryId)
+    {
+        InventoryResult result = _itemDropper != null
+            ? _itemDropper.TryDrop(Model, entryId) : InventoryResult.DropUnavailable;
+        if (result != InventoryResult.Success)
+        {
+            Debug.LogWarning($"Cannot drop inventory item: {result}.", this);
+        }
+
+        return result;
+    }
+
+    private void InitializeCatalog()
+    {
+        if (_itemCatalog == null) return;
+
+        foreach (ItemData item in _itemCatalog.Items)
+        {
+            if (item == null || string.IsNullOrWhiteSpace(item.ItemID)) continue;
+            if (_itemsById.TryAdd(item.ItemID, item)) continue;
+
+            _itemsById[item.ItemID] = null;
+            Debug.LogError($"Duplicate item ID in {_itemCatalog.name}: {item.ItemID}.", this);
+        }
     }
 
     private void SeedDebugItems()

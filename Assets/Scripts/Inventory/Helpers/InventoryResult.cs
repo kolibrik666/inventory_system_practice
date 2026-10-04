@@ -13,6 +13,7 @@ namespace InventorySystem
         AlreadyEquipped,
         NotEquipped,
         NotConsumable,
-        EquippedUnitReserved
+        EquippedUnitReserved,
+        DropUnavailable
     }
 }

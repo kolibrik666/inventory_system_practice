@@ -23,6 +23,7 @@ public sealed class InventoryView : MonoBehaviour, IInventoryView
     [SerializeField] private TMP_Text _weight;
     [SerializeField] private TMP_Text _useHint;
     [SerializeField] private TMP_Text _equipHint;
+    [SerializeField] private TMP_Text _dropHint;
 
     private readonly List<InventoryItemView> _rows = new();
     private readonly List<InventoryDetailView> _details = new();
@@ -31,6 +32,7 @@ public sealed class InventoryView : MonoBehaviour, IInventoryView
 
     public event Action<Guid> ItemHovered;
     public event Action<Guid> ItemClicked;
+    public event Action<Guid> ItemRightClicked;
     public event Action<bool> VisibilityChanged;
 
     public void SetVisible(bool visible)
@@ -64,6 +66,7 @@ public sealed class InventoryView : MonoBehaviour, IInventoryView
                 InventoryItemView row = Instantiate(_itemPrefab, _itemsRoot);
                 row.Hovered += OnItemHovered;
                 row.Clicked += OnItemClicked;
+                row.RightClicked += OnItemRightClicked;
                 _rows.Add(row);
             }
 
@@ -87,7 +90,7 @@ public sealed class InventoryView : MonoBehaviour, IInventoryView
         }
     }
 
-    public void ShowDetails(ItemData item, IReadOnlyList<InventoryDetailData> details, bool canConsume, bool canEquip, bool equipped)
+    public void ShowDetails(ItemData item, IReadOnlyList<InventoryDetailData> details, bool canConsume, bool canEquip, bool equipped, bool canDrop)
     {
         _detailsPanel.SetActive(item != null);
         _itemIcon.sprite = item != null ? item.ItemIcon : null;
@@ -96,6 +99,7 @@ public sealed class InventoryView : MonoBehaviour, IInventoryView
         _useHint.gameObject.SetActive(canConsume);
         _equipHint.gameObject.SetActive(canEquip);
         _equipHint.text = equipped ? "SPACE) <b>UNEQUIP</b>" : "SPACE) <b>EQUIP</b>";
+        _dropHint.gameObject.SetActive(canDrop);
 
         for (int index = 0; index < details.Count; index++)
         {
@@ -129,6 +133,11 @@ public sealed class InventoryView : MonoBehaviour, IInventoryView
         ItemClicked?.Invoke(id);
     }
 
+    private void OnItemRightClicked(Guid id)
+    {
+        ItemRightClicked?.Invoke(id);
+    }
+
     private void OnDestroy()
     {
         foreach (InventoryItemView row in _rows)
@@ -136,6 +145,7 @@ public sealed class InventoryView : MonoBehaviour, IInventoryView
             if (row == null) continue;
             row.Hovered -= OnItemHovered;
             row.Clicked -= OnItemClicked;
+            row.RightClicked -= OnItemRightClicked;
         }
     }
 }

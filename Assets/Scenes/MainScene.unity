@@ -837,13 +837,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 910000000000000011, guid: 88e72921d7778ff449d50e8dfd0666dd, type: 3}
-      propertyPath: _cameraController
-      value:
-      objectReference: {fileID: 330585548}
-    - target: {fileID: 910000000000000011, guid: 88e72921d7778ff449d50e8dfd0666dd, type: 3}
       propertyPath: _debugMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 910000000000000011, guid: 88e72921d7778ff449d50e8dfd0666dd, type: 3}
+      propertyPath: _itemDropper
+      value: 
+      objectReference: {fileID: 2200000003}
+    - target: {fileID: 910000000000000011, guid: 88e72921d7778ff449d50e8dfd0666dd, type: 3}
+      propertyPath: _cameraController
+      value: 
+      objectReference: {fileID: 330585548}
     - target: {fileID: 910000000000000011, guid: 88e72921d7778ff449d50e8dfd0666dd, type: 3}
       propertyPath: _debugItems.Array.size
       value: 12
@@ -1186,7 +1190,7 @@ Transform:
   m_GameObject: {fileID: 1834087000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.424, z: -4.7270007}
+  m_LocalPosition: {x: 0, y: 1.424, z: -4.53}
   m_LocalScale: {x: 5.7077, y: 2.2185, z: 0.2304}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1281,6 +1285,8 @@ GameObject:
   - component: {fileID: 1999113011}
   - component: {fileID: 1999113007}
   - component: {fileID: 1999113006}
+  - component: {fileID: 2200000002}
+  - component: {fileID: 2200000003}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -1422,10 +1428,172 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2200000001 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 910000000000000011, guid: 88e72921d7778ff449d50e8dfd0666dd, type: 3}
+  m_PrefabInstance: {fileID: 1639339759}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c0a539b4110b714aa6cf04596a38111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2200000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999113005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b76237191c455d9f8cf9b3187250cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 330585545}
+  _inventory: {fileID: 2200000001}
+  _interactionDistance: 3
+  _raycastLayers:
+    serializedVersion: 2
+    m_Bits: 51
+--- !u!114 &2200000003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999113005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a039a1a60e4c398e2cd6ed39b7d3aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _worldItemPrefab: {fileID: 410000000000000004, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+  _dropOrigin: {fileID: 330585546}
+  _dropDistance: 1.5
+  _groundProbeDistance: 5
+  _placementLayers:
+    serializedVersion: 2
+    m_Bits: 4294967291
+--- !u!1001 &2200000010
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 410000000000000001, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_Name
+      value: Pear Pickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000002, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000002, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000002, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000004, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: _itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 560317b575c3eb14da2f726e80f1c8e6, type: 2}
+    - target: {fileID: 410000000000000004, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: _quantity
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+--- !u!1001 &2200000012
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 410000000000000001, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_Name
+      value: Armor Pickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000002, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000002, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000002, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000004, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: _itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 11ea99bff0538b84fa33e74ae3ee7cf2, type: 2}
+    - target: {fileID: 410000000000000004, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: _quantity
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+--- !u!1001 &2200000014
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 410000000000000001, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_Name
+      value: Beer Pickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000002, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000002, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000002, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 410000000000000004, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: _itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b8309d52322bcf45aac2f0781b29680, type: 2}
+    - target: {fileID: 410000000000000004, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
+      propertyPath: _quantity
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 86b32fff6e414435a97a1db2b2266d0a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2200000014}
+  - {fileID: 2200000012}
+  - {fileID: 2200000010}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1535722308}

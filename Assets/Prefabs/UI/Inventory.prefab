@@ -1784,7 +1784,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: R) <b>DROP</b>
+  m_text: RMB) <b>DROP</b>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ed21c015e8866542af15091b7f55393, type: 2}
   m_sharedMaterial: {fileID: -7869968821854261112, guid: 0ed21c015e8866542af15091b7f55393, type: 2}
@@ -2188,6 +2188,7 @@ MonoBehaviour:
   _weight: {fileID: 5109168702681456339}
   _useHint: {fileID: 3887092026663761457}
   _equipHint: {fileID: 1313289571}
+  _dropHint: {fileID: 6353980342985544915}
 --- !u!114 &910000000000000011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2202,6 +2203,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 910000000000000010}
   _cameraController: {fileID: 0}
+  _itemCatalog: {fileID: 11400000, guid: 447b99d8a4744ad38581a01964e8a249, type: 2}
+  _itemDropper: {fileID: 0}
   _capacity: 20
   _startVisible: 0
   _debugMode: 0

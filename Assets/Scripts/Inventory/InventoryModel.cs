@@ -99,16 +99,19 @@ namespace InventorySystem
             if (entry == null) return InventoryResult.EntryNotFound;
             if (!entry.IsEquipped) return InventoryResult.NotEquipped;
 
-            EquipmentSlot occupiedSlot = default;
-            foreach (KeyValuePair<EquipmentSlot, InventoryEntry> assignment in _equipment)
-            {
-                if (assignment.Value != entry) continue;
-                occupiedSlot = assignment.Key;
-                break;
-            }
+            ClearEquipment(entry);
+            Changed?.Invoke();
+            return InventoryResult.Success;
+        }
 
-            _equipment.Remove(occupiedSlot);
-            entry.IsEquipped = false;
+        public InventoryResult TryRemove(Guid id, int quantity = 1)
+        {
+            if (quantity <= 0) return InventoryResult.InvalidQuantity;
+            InventoryEntry entry = FindEntry(id);
+            if (entry == null) return InventoryResult.EntryNotFound;
+            if (quantity > entry.Quantity) return InventoryResult.InvalidQuantity;
+
+            RemoveUnits(entry, quantity);
             Changed?.Invoke();
             return InventoryResult.Success;
         }
@@ -121,13 +124,7 @@ namespace InventorySystem
             if (entry.IsEquipped && entry.Quantity == 1) return InventoryResult.EquippedUnitReserved;
 
             ItemConsumedEvent consumed = new(entry, consumable);
-            entry.Quantity--;
-            _currentWeight -= entry.UnitWeight;
-            if (entry.Quantity == 0)
-            {
-                _entries.Remove(entry);
-            }
-
+            RemoveUnits(entry, 1);
             Changed?.Invoke();
             ItemConsumed?.Invoke(consumed);
             return InventoryResult.Success;
@@ -152,6 +149,30 @@ namespace InventorySystem
 
             return Enum.IsDefined(typeof(EquipmentSlot), slot)
                 ? InventoryResult.Success : InventoryResult.InvalidSlot;
+        }
+
+        private void RemoveUnits(InventoryEntry entry, int quantity)
+        {
+            entry.Quantity -= quantity;
+            _currentWeight -= entry.UnitWeight * quantity;
+            if (entry.Quantity > 0) return;
+
+            if (entry.IsEquipped) ClearEquipment(entry);
+            _entries.Remove(entry);
+        }
+
+        private void ClearEquipment(InventoryEntry entry)
+        {
+            EquipmentSlot occupiedSlot = default;
+            foreach (KeyValuePair<EquipmentSlot, InventoryEntry> assignment in _equipment)
+            {
+                if (assignment.Value != entry) continue;
+                occupiedSlot = assignment.Key;
+                break;
+            }
+
+            _equipment.Remove(occupiedSlot);
+            entry.IsEquipped = false;
         }
 
         private static bool TryGetWeight(float value, out decimal weight)
