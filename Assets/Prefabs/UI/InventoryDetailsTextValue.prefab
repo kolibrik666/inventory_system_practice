@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4372597179438571720}
   - component: {fileID: 7833898193682364517}
   - component: {fileID: 2181688448592688762}
+  - component: {fileID: 910000000000000001}
   m_Layer: 5
   m_Name: InventoryDetailsTextValue
   m_TagString: Untagged
@@ -275,3 +276,17 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &910000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485290577446567492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744e472ca89d4594bd8d8a82209cef96, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  _label: {fileID: 4990629733221717884}
+  _value: {fileID: 2181688448592688762}

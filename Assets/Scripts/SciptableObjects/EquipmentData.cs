@@ -8,7 +8,8 @@ namespace SciptableObjects
     {
         Head,
         Body,
-        Accessory
+        Accessory,
+        Weapon
     }
 
     [Serializable]

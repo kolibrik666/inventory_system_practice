@@ -1,24 +1,23 @@
 using TMPro;
-using Unity.Burst.CompilerServices;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TextButton : ButtonHintExtended, IPointerExitHandler
+public class TextButton : Button
 {
-    /*[SerializeField] Transform _transform;
-    RectTransform _rectTransform => _transform as RectTransform;*/
+    [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private TextMeshProUGUI _textOther;
+    [SerializeField] private bool _useCustomColors = true;
+    [SerializeField] private ColorBlock _colors = ColorBlock.defaultColorBlock;
 
-    [SerializeField] TextMeshProUGUI _text;
-    [SerializeField] TextMeshProUGUI _textOther;
-
-    [SerializeField] bool _useCustomColors = true;
-    [SerializeField] ColorBlock _colors = ColorBlock.defaultColorBlock;
+    protected TextMeshProUGUI PrimaryText => _text;
+    protected TextMeshProUGUI SecondaryText => _textOther;
 
     protected override void DoStateTransition(SelectionState state, bool instant)
     {
         base.DoStateTransition(state, instant);
-        var colors = _useCustomColors ? _colors : base.colors;
+        ColorBlock colors = _useCustomColors ? _colors : base.colors;
         Color color = state switch
         {
             SelectionState.Normal => colors.normalColor,
@@ -35,8 +34,9 @@ public class TextButton : ButtonHintExtended, IPointerExitHandler
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
-        if(interactable)
-        //if (RectTransformUtility.RectangleContainsScreenPoint(_rectTransform, Input.mousePosition)) return;
-        DoStateTransition(SelectionState.Normal, true);
+        if (interactable)
+        {
+            DoStateTransition(SelectionState.Normal, true);
+        }
     }
 }

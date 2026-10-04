@@ -88,11 +88,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2297553375324818006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f288be79353415438d17d08db00eccb, type: 3}
+  m_Script: {fileID: 11500000, guid: 207ab6e597d84253a2c67547197b38ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -123,8 +123,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  _hint: {fileID: 0}
-  _hintText: {fileID: 0}
   _text: {fileID: 2578633689409314027}
   _textOther: {fileID: 6993848259665535779}
   _useCustomColors: 1
@@ -136,6 +134,8 @@ MonoBehaviour:
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.2
+  _equipmentToggle: {fileID: 6536961638347941819}
+  _equippedIndicator: {fileID: 5041602476076325376}
 --- !u!1 &5041602476076325376
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 40.3, y: 0}
-  m_SizeDelta: {x: 60, y: 0}
+  m_SizeDelta: {x: 40, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4484373437652070882
 CanvasRenderer:

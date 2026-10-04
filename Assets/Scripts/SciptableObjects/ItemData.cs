@@ -27,7 +27,6 @@ namespace SciptableObjects
         public int ItemMoneyValue => _itemMoneyValue;
         public IReadOnlyList<ItemModuleData> Modules => _modules;
 
-        // Returns the first matching module; use Modules to process every attached module.
         public bool TryGetModule<T>(out T module) where T : ItemModuleData
         {
             foreach (ItemModuleData candidate in _modules)
@@ -45,8 +44,6 @@ namespace SciptableObjects
 
         private void OnValidate()
         {
-            // Unity's standard list can duplicate the previous entry when adding a slot.
-            // Keep the first module of each type and leave new duplicate slots empty.
             HashSet<Type> moduleTypes = new();
             for (int index = 0; index < _modules.Count; index++)
             {
@@ -57,7 +54,6 @@ namespace SciptableObjects
                 }
             }
 
-            // Generates a GUID if one hasn't been set yet
             if (string.IsNullOrEmpty(_itemID))
             {
                 _itemID = System.Guid.NewGuid().ToString();

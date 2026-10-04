@@ -14,13 +14,14 @@ public sealed class CameraController : MonoBehaviour
     private InputAction _releaseCursorAction;
     private InputAction _captureCursorAction;
     private float _pitch;
+    private int _captureFrame = -1;
     private bool _inputEnabled = true;
 
     private void Awake()
     {
         if (_playerTransform == null || _playerTransform == transform || !transform.IsChildOf(_playerTransform))
         {
-            Debug.LogError("FirstPersonCameraController requires a player transform that is an ancestor of this camera.", this);
+            Debug.LogError("CameraController requires a player transform that is an ancestor of this camera.", this);
             enabled = false;
             return;
         }
@@ -65,7 +66,7 @@ public sealed class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (!_inputEnabled || !Application.isFocused) return;
+        if (!_inputEnabled || !Application.isFocused || _captureFrame == Time.frameCount) return;
 
         if (_releaseCursorAction.WasPressedThisFrame())
         {
@@ -106,14 +107,21 @@ public sealed class CameraController : MonoBehaviour
 
     private void OnApplicationFocus(bool hasFocus)
     {
-        if (!hasFocus && isActiveAndEnabled && _lookAction != null)
+        if (!isActiveAndEnabled || _lookAction == null) return;
+
+        if (hasFocus && _inputEnabled)
+        {
+            CaptureCursor();
+        }
+        else
         {
             ReleaseCursor();
         }
     }
 
-    private static void CaptureCursor()
+    private void CaptureCursor()
     {
+        _captureFrame = Time.frameCount;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
