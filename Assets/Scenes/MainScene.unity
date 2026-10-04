@@ -3283,6 +3283,7 @@ GameObject:
   - component: {fileID: 1696359130}
   - component: {fileID: 1696359132}
   - component: {fileID: 1696359131}
+  - component: {fileID: 1696359133}
   m_Layer: 5
   m_Name: TextTip
   m_TagString: Untagged
@@ -3329,9 +3330,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'CLICK
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ed21c015e8866542af15091b7f55393, type: 2}
   m_sharedMaterial: {fileID: -7869968821854261112, guid: 0ed21c015e8866542af15091b7f55393, type: 2}
@@ -3411,6 +3410,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696359129}
   m_CullTransparentMesh: 1
+--- !u!114 &1696359133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696359129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9c4ae308bc4b0aa80810f4c8f7b45a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionTipView
+  _text: {fileID: 1696359131}
 --- !u!1 &1752171639
 GameObject:
   m_ObjectHideFlags: 0
@@ -3873,6 +3885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 330585545}
   _inventory: {fileID: 2200000001}
+  _tipView: {fileID: 1696359133}
   _interactionDistance: 3
   _raycastLayers:
     serializedVersion: 2

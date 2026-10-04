@@ -11,6 +11,7 @@ namespace InteractionSystem
         [SerializeField] private HaulRoundController _roundController;
 
         public string Id => "exit";
+        public string InteractionPrompt => "E) TO FINISH";
         public bool CanInteract => isActiveAndEnabled && _roundController != null && _roundController.CanExtract;
 
         private void Awake()

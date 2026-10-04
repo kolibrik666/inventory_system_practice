@@ -22,6 +22,7 @@ namespace InteractionSystem
         private bool _collected;
 
         public string Id => _itemData != null ? _itemData.ItemID : string.Empty;
+        public string InteractionPrompt => "E) ADD TO INVENTORY";
         public bool CanInteract => isActiveAndEnabled && !_collected && _itemData != null && _quantity > 0;
         public Bounds PickupBounds => new(Vector3.up * _hoverHeight, Vector3.one * _displaySize);
 
